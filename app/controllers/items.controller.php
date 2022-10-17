@@ -25,15 +25,20 @@
 
         public function addPeriferico() {
             $this->authHelper->checkLoggedIn();
-            $marca = $_POST['marca'];
-            $nombre = $_POST['nombre'];
-            $color = $_POST['color'];
-            $descripcion = $_POST['descripcion'];
-            $precio = $_POST['precio'];
             $tipo = $_POST['tipo'];
-            $this->model->add($marca, $nombre, $color, $descripcion, $tipo, $precio);
+            $control = $this->model->verificarExisteTipo($tipo);
+            if (!empty($control)) {
+                $marca = $_POST['marca'];
+                $nombre = $_POST['nombre'];
+                $color = $_POST['color'];
+                $descripcion = $_POST['descripcion'];
+                $precio = $_POST['precio'];
+                $this->model->add($marca, $nombre, $color, $descripcion, $tipo, $precio);
+                header("Location: " . BASE_URL); 
+            } else {
+                header("Location: " . BASE_URL); 
+            }
 
-            header("Location: " . BASE_URL); 
         }
         public function showEditForm($id) {
             $this->authHelper->checkLoggedIn();

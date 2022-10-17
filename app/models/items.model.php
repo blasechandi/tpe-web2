@@ -53,4 +53,13 @@ class ItemsModel
         $query = $this->db->prepare("UPDATE periferico SET marca= ?,nombre= ?, color= ?, descripcion= ?, precio= ?, id_tipo_periferico=? WHERE id = ? ");
         $query->execute([$marca, $nombre, $color, $descripcion, $precio, $tipo, $id]);
     }
+
+    public function verificarExisteTipo($tipo) {
+        $query = $this->db->prepare("SELECT * FROM tipo_periferico WHERE id_tipo_periferico = ?");
+        $query->execute([$tipo]);
+
+        $existeTipo = $query->fetch(PDO::FETCH_OBJ);
+        return $existeTipo;
+
+    }
 }
